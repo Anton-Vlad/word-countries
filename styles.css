@@ -1,0 +1,225 @@
+:root {
+    --background-dark: #202C36;
+    --card-bg-dark: #2B3844;
+    --text-color-dark: #FFF;
+    --placeholder-color-dark: #FFF;
+
+    --background-light: #F2F2F2;
+    --card-bg-light: #FFF;
+    --text-color-light:  #111517;
+    --placeholder-color-light: #848484;
+}
+
+body {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 400;
+    color: var(--text-color-light);
+}
+
+body * {
+    box-sizing: border-box;
+}
+
+body.theme-mode {
+    transition: 0.4s background-color ease-in-out, 0.4s color ease-in-out;
+}
+
+body.theme-mode--light {
+    background-color: var(--background-light);
+    color: var(--text-color-light);
+}
+
+.title-text-main {
+    font-weight: 800;
+    font-size: 24px;
+    line-height: 33px;
+    margin: 0;
+}
+
+.text-semibold-normal {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+main .container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+header {
+    padding: 24px 0;
+    transition: 0.4s background-color ease-in-out, 0.4s box-shadow ease-in-out;
+}
+body.theme-mode--light header {
+    background-color: var(--card-bg-light);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.0562443);
+}
+
+header > .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.theme-switcher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+
+/**
+    Filters Section ------------------------------------------------
+*/
+.filters-section {
+    margin: 48px 0;
+}
+.filters-section > .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.custom-input {
+    padding: 19px 32px;
+    transition: 0.4s background-color ease-in-out, 0.4s box-shadow ease-in-out, 0.4s color ease-in-out;
+    border-radius: 5px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
+.custom-input input {
+    outline: 0;
+    box-sizing: border-box;
+    border: none;
+    display: block;
+    flex-grow: 1;
+    padding: 0;
+    margin: 0;
+}
+.custom-input input::-webkit-input-placeholder { /* Edge */
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--placeholder-color-light);
+}
+  
+.custom-input input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--placeholder-color-light);
+}
+  
+.custom-input input::placeholder {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--placeholder-color-light);
+}
+
+.custom-input__icon {
+    display: flex;
+}
+
+body.theme-mode--light .custom-input {
+    background: var(--card-bg-light);;
+    box-shadow: 0px 2px 9px rgba(0, 0, 0, 0.0532439);
+    color: var(--text-color-light);
+}
+
+
+.search-input-box {
+    width: 480px;
+    display: flex;
+    gap: 24px;
+}
+.select-input-box {
+    width: 200px;
+    padding: 18px 24px;
+}
+
+.select-value-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+
+
+/**
+    Grid Cards ------------------------------------------------
+*/
+.grid {
+    background: transparent;
+}
+.grid > .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 75px;
+}
+
+.card {
+    text-decoration: none;
+    transition: 0.4s background-color ease-in-out, 0.4s box-shadow ease-in-out, 0.4s color ease-in-out;
+}
+body.theme-mode--light .card {
+    color: var(--text-color-light);
+    background-color: var(--card-bg-light);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.0562443);
+}
+
+.card .card__header {
+    height: 160px;
+}
+.card .card__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card .card__body {
+    padding: 24px 24px 46px;
+}
+
+.card .card__title {
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 26px;
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.card .country-statistic {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.card .country-statistic:last-of-type {
+    margin-bottom: 0;
+}
+
+.card .country-statistic .country-statistic__label {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+}
+.card .country-statistic .country-statistic__value {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+}

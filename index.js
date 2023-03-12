@@ -76,7 +76,7 @@ const createCountryCard = function (country) {
 
     let card = document.createElement("a");
     card.className = 'card';
-    card.href = '/single-view?country=' + country.cca3;
+    card.href = '/single.html?country=' + country.cca3;
 
     let cardHeader = document.createElement('div');
     cardHeader.className = 'card__header';
@@ -84,6 +84,9 @@ const createCountryCard = function (country) {
     let cardImage = document.createElement('img');
     cardImage.className = 'card__image';
     cardImage.src = country.flags.png;
+    if (country.flags.alt) {
+        cardImage.alt = country.flags.alt;
+    }
 
     cardHeader.appendChild(cardImage);
  
@@ -92,7 +95,7 @@ const createCountryCard = function (country) {
     cardBody.className = 'card__body';
     let cardTitle = document.createElement('h2');
     cardTitle.className = 'card__title';
-    cardTitle.innerHTML = country.name.official;
+    cardTitle.innerHTML = country.name.common;
     
     let cardDetails = document.createElement('div');
     cardDetails.className = 'card__details';

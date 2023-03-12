@@ -1,6 +1,31 @@
 let countries = [];
 let singleCountryCode = '';
 
+let theme = 'light';
+
+const init = function () {
+    initCountries();
+    initThemeMod();
+}
+
+const initThemeMod = function () {
+    theme = localStorage.getItem("theme");
+
+    if (theme == null) {
+        theme = 'light';
+        document.body.classList.remove('theme-mode--light');
+        document.body.classList.remove('theme-mode--dark');
+
+        document.body.classList.add('theme-mode--' + theme);
+        localStorage.setItem("theme", 'light');
+    } else {
+        document.body.classList.remove('theme-mode--light');
+        document.body.classList.remove('theme-mode--dark');
+
+        document.body.classList.add('theme-mode--' + theme);
+    }
+}
+
 const initCountries = function () {
     countries = localStorage.getItem("countries");
 
@@ -56,7 +81,7 @@ const createCountryPage = function (country) {
     countryDetailsEl.innerHTML = '';
     let countrydStatisticsFields = [
         {
-            tag: 'nativeName',
+            tag: 'name',
             label: 'Native Name:',
             type: 'nativeName'
         }, 
@@ -97,78 +122,87 @@ const createCountryPage = function (country) {
         },
     ];
     countrydStatisticsFields.forEach(stat => {
-        let elRow = document.createElement('li')
-        elRow.className = 'country-statistic'
 
-        let elLabel = document.createElement('div')
-        elLabel.className = 'country-statistic__label'
-        elLabel.innerHTML = stat.label
-    
-        let elValue = document.createElement('div')
-        elValue.className = 'country-statistic__value'
-        let value = '';
-        if (stat.type == 'array') {
-            value = (country[stat.tag] ? country[stat.tag][0] : '');
-        }
-        if (stat.type == 'string') {
-            value = country[stat.tag];
-        }
-        if (stat.type == 'number') {
-            value = country[stat.tag];
-            value = new Intl.NumberFormat('en-US', {}).format(value)
-        }
-        if (stat.type == 'nativeName') {
-            let names = Object.values(country.name.nativeName);
-            value = [];
-            if (names && names.length > 0) {
-                names.forEach(element => {
-                    if (value.length < 2) {
-                        value.push(element.common)
-                    }
-                });
+        if (country[stat.tag]) {
+            let elRow = document.createElement('li')
+            elRow.className = 'country-statistic'
 
-                value = value.join(', ');
+            let elLabel = document.createElement('div')
+            elLabel.className = 'country-statistic__label'
+            elLabel.innerHTML = stat.label
+        
+            let elValue = document.createElement('div')
+            elValue.className = 'country-statistic__value'
+            let value = '';
+            if (stat.type == 'array') {
+                value = (country[stat.tag] ? country[stat.tag][0] : '');
             }
-        }
-        if (stat.type == 'currencies') {
-            let curr = Object.values(country.currencies);
-            value = (curr && curr.length > 0 ? curr[0].name : 'Unknown');
-        }
-        if (stat.type == 'languages') {
-            let langs = Object.values(country.languages);
-            value = [];
-            if (langs && langs.length > 0) {
-                langs.forEach(element => {
-                    value.push(element)
-                });
-
-                value = value.join(', ');
+            if (stat.type == 'string') {
+                value = country[stat.tag];
             }
-        }
-        elValue.innerHTML = value
+            if (stat.type == 'number') {
+                value = country[stat.tag];
+                value = new Intl.NumberFormat('en-US', {}).format(value)
+            }
+            if (stat.type == 'nativeName') {
+                let names = Object.values(country.name.nativeName);
+                value = [];
+                if (names && names.length > 0) {
+                    names.forEach(element => {
+                        if (value.length < 2) {
+                            value.push(element.common)
+                        }
+                    });
 
-        elRow.appendChild(elLabel);
-        elRow.appendChild(elValue);
-        countryDetailsEl.appendChild(elRow)
+                    value = value.join(', ');
+                }
+            }
+            if (stat.type == 'currencies') {
+                let curr = Object.values(country.currencies);
+                value = (curr && curr.length > 0 ? curr[0].name : 'Unknown');
+            }
+            if (stat.type == 'languages') {
+                let langs = Object.values(country.languages);
+                value = [];
+                if (langs && langs.length > 0) {
+                    langs.forEach(element => {
+                        value.push(element)
+                    });
+
+                    value = value.join(', ');
+                    elValue.classList.add('overflow-text')
+                    elValue.title = value
+                }
+            }
+            elValue.innerHTML = value
+
+            elRow.appendChild(elLabel);
+            elRow.appendChild(elValue);
+            countryDetailsEl.appendChild(elRow)
+        }
     });
 
     const bordersEl = document.getElementById('the-country-borders');
     bordersEl.innerHTML = '';
 
     let borderCountries = country.borders;
-    borderCountries.forEach(bCode => {
-        //get the country name, from the country code
-        let c = countries.filter(x => x.cca3 == bCode);
-        if (c && c.length) {
-            let elButton = document.createElement('a')
-            elButton.className = 'button'
-            elButton.href = '/single.html?country=' + c[0].cca3;
-            elButton.innerHTML = c[0].name.common;
-
-            bordersEl.appendChild(elButton);
-        }
-    });
+    if (borderCountries) {
+        borderCountries.forEach(bCode => {
+            //get the country name, from the country code
+            let c = countries.filter(x => x.cca3 == bCode);
+            if (c && c.length) {
+                let elButton = document.createElement('a')
+                elButton.className = 'button'
+                elButton.href = '/single.html?country=' + c[0].cca3;
+                elButton.innerHTML = c[0].name.common;
+    
+                bordersEl.appendChild(elButton);
+            }
+        });
+    } else {
+        bordersEl.innerHTML = '<span style="padding-top: 10px;">No neighbors</span>';
+    }
 };
 
 
-document.body.onload = initCountries;
+document.body.onload = init;

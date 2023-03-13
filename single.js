@@ -66,7 +66,6 @@ const renderCountry = function (localCountries) {
 }
 
 const createCountryPage = function (country) {
-    console.log('COUNTRY', country)
 
     const countryFlagEl = document.getElementById('the-country-flag');
     countryFlagEl.src = country.flags.svg;
@@ -193,7 +192,7 @@ const createCountryPage = function (country) {
             if (c && c.length) {
                 let elButton = document.createElement('a')
                 elButton.className = 'button'
-                elButton.href = window.location.origin + window.location.pathname + '/single.html?country=' + c[0].cca3;
+                elButton.href = window.location.origin + 'word-countries/single.html?country=' + c[0].cca3;
                 elButton.innerHTML = c[0].name.common;
     
                 bordersEl.appendChild(elButton);

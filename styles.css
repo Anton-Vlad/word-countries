@@ -228,6 +228,13 @@ body.theme-mode--dark .custom-input {
     background: transparent;
     display: block;
 }
+body.theme-mode--light .search-input-box input {
+    color: var(--text-color-light);
+}
+body.theme-mode--dark .search-input-box input {
+    color: var(--text-color-dark);
+}
+
 .select-input-box {
     width: 200px;
     padding: 18px 24px;

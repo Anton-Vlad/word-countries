@@ -142,7 +142,7 @@ const createCountryCard = function (country) {
 
     let card = document.createElement("a");
     card.className = 'card';
-    card.href = '/single.html?country=' + country.cca3;
+    card.href = window.location.origin + window.location.pathname + '/single.html?country=' + country.cca3;
 
     let cardHeader = document.createElement('div');
     cardHeader.className = 'card__header';

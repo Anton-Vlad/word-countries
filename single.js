@@ -193,7 +193,7 @@ const createCountryPage = function (country) {
             if (c && c.length) {
                 let elButton = document.createElement('a')
                 elButton.className = 'button'
-                elButton.href = '/single.html?country=' + c[0].cca3;
+                elButton.href = window.location.origin + window.location.pathname + '/single.html?country=' + c[0].cca3;
                 elButton.innerHTML = c[0].name.common;
     
                 bordersEl.appendChild(elButton);
